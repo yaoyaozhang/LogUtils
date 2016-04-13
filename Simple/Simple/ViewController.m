@@ -22,10 +22,11 @@
     
     
     [LogUtil log:@"----Tag-----" info:@"我是自定义日志" header:LogHeader];
-    [LogUtil logError:@"错误" header:LogHeader];
-    [LogUtil logInfo:@"普通日志" header:LogHeader];
-    [LogUtil logWarning:@"发生警告" header:LogHeader];
+    [LogUtil logHeader:LogHeader info:@"普通日志"];
+    [LogUtil logHeader:LogHeader warning:@"发生警告"];
+    [LogUtil logHeader:LogHeader error:@"错误"];
     
+    [LogUtil logText:@"为啥%d,水电费司法局%d,,,%@",1,2,@"sdfsfsd"];    
     // 如果开启存储日志，返回当前日志
     [LogUtil getLogFilePath];
     

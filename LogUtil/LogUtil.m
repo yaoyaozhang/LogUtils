@@ -27,25 +27,57 @@
 }
 
 
-+(void)log:(NSString *) tag info:(NSString *) log header:(NSString *)header{
-    NSString *text = [NSString stringWithFormat:@"%@\n%@:\n%@",header,tag,log];
+
++(void)logText:(NSString *)format, ...{
+    if(!format){
+        return;
+    }
+    va_list arglist;
+    va_start(arglist, format);
+    NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+    va_end(arglist);
+    
+    [self log:outStr cache:NO];
+}
+
++(void)logHeader:(NSString *)header info:(NSString *)format, ...{
+    if(!format){
+        return;
+    }
+    va_list arglist;
+    va_start(arglist, format);
+    NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+    va_end(arglist);
+    
+    NSString *text = [NSString stringWithFormat:@"%@\nInfo:\n%@",header,outStr];
     [self log:text cache:(Log_Cache_Flag && Log_Cache_CustomFlag)];
 }
 
-+(void)logInfo:(NSString *) log header:(NSString *) header{
-    NSString *text = [NSString stringWithFormat:@"%@\ninfo:\n%@",header,log];
++(void)logHeader:(NSString *)header error:(NSString *)format, ...{
     
+    if(!format){
+        return;
+    }
+    va_list arglist;
+    va_start(arglist, format);
+    NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+    va_end(arglist);
+    
+    NSString *text = [NSString stringWithFormat:@"%@\nError:\n%@",header,outStr];
     [self log:text cache:(Log_Cache_Flag && Log_Cache_InfoFlag)];
 }
 
-+(void)logError:(NSString *) log header:(NSString *) header{
-    NSString *text = [NSString stringWithFormat:@"%@\nError:\n%@",header,log];
++(void)logHeader:(NSString *)header warning:(NSString *)format, ...{
+    if(!format){
+        return;
+    }
+    va_list arglist;
+    va_start(arglist, format);
+    NSString *outStr = [[NSString alloc] initWithFormat:format arguments:arglist];
+    va_end(arglist);
     
-    [self log:text cache:(Log_Cache_Flag && Log_Cache_ErrorFlag)];
-}
-
-+(void)logWarning:(NSString *) log header:(NSString *) header{
-    NSString *text = [NSString stringWithFormat:@"%@\nError:\n%@",header,log];
+    
+    NSString *text = [NSString stringWithFormat:@"%@\nWarning:\n%@",header,outStr];
     [self log:text cache:(Log_Cache_Flag && Log_Cache_ErrorFlag)];
 }
 

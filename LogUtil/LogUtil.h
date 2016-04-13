@@ -37,9 +37,10 @@
  *  @param log    日志内容
  *  @param header 日志行号、方法名称,直接传递LogHeader宏定义即可
  */
-+(void)logInfo:(NSString *) log header:(NSString *) header;
-+(void)logError:(NSString *) log header:(NSString *) header;
-+(void)logWarning:(NSString *) log header:(NSString *) header;
++(void)logText:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++(void)logHeader:(NSString *) header info:(NSString *)format, ... NS_FORMAT_FUNCTION(2,3);
++(void)logHeader:(NSString *) header error:(NSString *)format, ... NS_FORMAT_FUNCTION(2,3);
++(void)logHeader:(NSString *) header warning:(NSString *)format, ... NS_FORMAT_FUNCTION(2,3);;
 
 
 /**
